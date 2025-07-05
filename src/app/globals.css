@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Yellow-based light theme */
+    --background: 45 100% 97%; /* Cream white background */
+    --foreground: 30 8% 15%; /* Dark charcoal text */
+
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 30 8% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 8% 15%;
+
+    --primary: 48 100% 50%; /* Bright yellow primary */
+    --primary-foreground: 30 8% 15%; /* Dark text on yellow */
+
+    --secondary: 45 100% 93%; /* Light yellow secondary */
+    --secondary-foreground: 30 8% 15%;
+
+    --muted: 45 50% 95%; /* Very light yellow muted */
+    --muted-foreground: 30 5% 45%;
+
+    --accent: 42 100% 85%; /* Warm yellow accent */
+    --accent-foreground: 30 8% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 45 30% 88%; /* Soft yellow border */
+    --input: 45 30% 90%; /* Light yellow input */
+    --ring: 48 100% 50%; /* Yellow focus ring */
+
+    --chart-1: 48 100% 50%; /* Yellow */
+    --chart-2: 210 80% 50%; /* Blue complement */
+    --chart-3: 160 60% 45%; /* Teal */
+    --chart-4: 25 85% 60%; /* Orange */
+    --chart-5: 280 60% 50%; /* Purple */
+
+    --radius: 12px; /* Increased border radius for modern look */
+
+    /* Mobile-specific variables */
+    --mobile-header-height: 60px;
+    --mobile-bottom-nav-height: 70px;
+  }
+
+  .dark {
+    /* Dark theme with yellow accents */
+    --background: 225 15% 8%; /* Dark navy background */
+    --foreground: 45 100% 95%; /* Light yellow text */
+
+    --card: 225 15% 12%; /* Darker cards */
+    --card-foreground: 45 100% 95%;
+
+    --popover: 225 15% 12%;
+    --popover-foreground: 45 100% 95%;
+
+    --primary: 48 100% 60%; /* Slightly muted yellow for dark */
+    --primary-foreground: 225 15% 8%; /* Dark background on yellow */
+
+    --secondary: 225 15% 16%; /* Dark secondary */
+    --secondary-foreground: 45 100% 95%;
+
+    --muted: 225 15% 16%;
+    --muted-foreground: 45 20% 70%;
+
+    --accent: 225 15% 20%; /* Dark accent */
+    --accent-foreground: 45 100% 95%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 225 15% 20%;
+    --input: 225 15% 20%;
+    --ring: 48 100% 60%;
+
+    --chart-1: 48 100% 60%;
+    --chart-2: 210 80% 60%;
+    --chart-3: 160 60% 55%;
+    --chart-4: 25 85% 70%;
+    --chart-5: 280 60% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Mobile-first responsive design */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Remove default margins and padding for mobile */
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* Mobile touch improvements */
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Better mobile scrolling */
+  .scroll-container {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mobile-safe animations */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Mobile navigation styles */
+  .mobile-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-card border-t border-border;
+    height: var(--mobile-bottom-nav-height);
+    z-index: 50;
+  }
+
+  .mobile-header {
+    @apply fixed top-0 left-0 right-0 bg-card/80 backdrop-blur-md border-b border-border;
+    height: var(--mobile-header-height);
+    z-index: 40;
+  }
+
+  .mobile-content {
+    padding-top: var(--mobile-header-height);
+    padding-bottom: var(--mobile-bottom-nav-height);
+    min-height: 100vh;
+  }
+
+  /* Card enhancements for mobile */
+  .mobile-card {
+    @apply bg-card rounded-xl border border-border/50 shadow-sm backdrop-blur-sm;
+  }
+
+  /* Status badges */
+  .status-active {
+    @apply bg-green-500/20 text-green-700 dark:text-green-300 border-green-500/30;
+  }
+
+  .status-inactive {
+    @apply bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30;
+  }
+
+  .status-renewed {
+    @apply bg-primary/20 text-primary-foreground border-primary/30;
+  }
+
+  .status-expired {
+    @apply bg-destructive/20 text-destructive border-destructive/30;
+  }
+
+  .status-due {
+    @apply bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--accent)) 100%
+    );
+  }
+
+  .gradient-card {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--card)) 0%,
+      hsl(var(--muted)) 100%
+    );
+  }
+}
+
+@layer utilities {
+  /* Mobile-first utilities */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Custom scrollbars */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 2px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.8);
+  }
+}
